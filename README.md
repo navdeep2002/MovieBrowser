@@ -57,3 +57,11 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+_Documentation_
+
+home.component.ts contains most of the comments and documentation that is in movieDetail.component.ts and search.component.ts
+therefore I have omitted some comment making in those 2 files. However, where code is difficult to understand comments have been added
+for my understanding, as well as the reader's understanding.
+
+Any and all use of AI-generated Code has been cited where possible, and also given the reason why.
