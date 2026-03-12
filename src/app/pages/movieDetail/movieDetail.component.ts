@@ -15,9 +15,13 @@ import { environment } from '../../../environments/environment';
 
         <div *ngIf="loading()">Loading...</div>
         
-        <div *ngIf="movie() as m">
-            <h1>{{ m.title }}</h1>
-            <img [src]="getImage(m.poster_path)" />
+        <div *ngIf="movie() as mov">
+            <h1>{{ mov.title }}</h1>
+            <img [src]="getImage(mov.poster_path)" />
+
+            <p *ngIf="mov.tagline">{{ mov.tagline }}</p>
+            <p>{{ mov.overview }}</p>
+
 
         </div>
     `
