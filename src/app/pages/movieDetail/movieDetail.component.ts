@@ -74,6 +74,41 @@ import { environment } from '../../../environments/environment';
             </div>
         </div>
     `,
+
+    styles: [
+        `
+            .back {
+                color: #e94560;
+                text-decoration: none;
+                display: inline-block;
+                margin-bottom: 1.5rem;
+                transition: opacity 0.2s;
+            }
+
+            .back:hover {
+                opacity: 0.7;
+            }
+
+            .loading {
+                color: white;
+                text-align: center;
+                padding: 2rem;
+            }
+
+            .error {
+                color: #e94560;
+                text-align: center;
+                padding: 2rem;
+            }
+
+            .detail {
+                display: flex;
+                gap: 2.5rem;
+                color: white;
+                flex-wrap: wrap;
+            }
+        `,
+    ],
 })
 export class MovieDetailComponent implements OnInit {
     movie = signal<Movie | null>(null); // stores movie obj that we got from the API
