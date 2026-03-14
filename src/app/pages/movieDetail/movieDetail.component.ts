@@ -19,25 +19,34 @@ import { environment } from '../../../environments/environment';
     standalone: true,
     imports: [CommonModule, RouterLink],
     template: `
-        <a routerLink="/">Back</a>
+        <a routerLink="/" class="back">← Back to Home</a>
         <!-- link to navigate back to the home page -->
 
-        <div *ngIf="loading()">Loading...</div>
+        <div *ngIf="loading()" class="loading">Loading movie details...</div>
         <!-- display the loading state while fetching movie details -->
 
-        <div *ngIf="movie() as mov">
+        <div *ngIf="error()" class="error">{{ error() }}</div>
+        <!-- display any error messages if the API request fails -->
+
+        <div *ngIf="movie() as mov" class="detail">
             <!-- display movie poster and tagline once they are received -->
-            <h1>{{ mov.title }}</h1>
-            <img [src]="getImage(mov.poster_path)" />
+            <img [src]="getImage(mov.poster_path)" [alt]="mov.title" />
 
-            <p *ngIf="mov.tagline">{{ mov.tagline }}</p>
-            <p>{{ mov.overview }}</p>
+            <div class="info">
+                <h1>{{ mov.title }}</h1>
 
-            <div>
-                <!-- display movie rating, release date, and runtime. i used chatgpt to generate this part of the code so that it makes the website feel better. the emojis
+                <p class="tagline" *ngIf="mov.tagline">{{ mov.tagline }}</p>
+
+                <div class="meta">
+                    <!-- display movie rating, release date, and runtime. i used chatgpt to generate this part of the code so that it makes the website feel better. the emojis
                     can be written using unicode characters, but this part was just a copy paste from chatgpt, so i left the emojis as they are.
                     -->
-                ⭐ {{ mov.vote_average }} 📅 {{ mov.release_date }} 🕐 {{ mov.runtime }} min
+                    <span>⭐ {{ mov.vote_average | number: '1.1-1' }}</span>
+                    <span>📅 {{ mov.release_date | date: 'mediumDate' }}</span>
+                    <span *ngIf="mov.runtime">🕐 {{ mov.runtime }} min</span>
+                </div>
+
+                <p class="overview">{{ mov.overview }}</p>
             </div>
         </div>
     `,
@@ -45,6 +54,7 @@ import { environment } from '../../../environments/environment';
 export class MovieDetailComponent implements OnInit {
     movie = signal<Movie | null>(null); // stores movie obj that we got from the API
     loading = signal(true); // tells us if the movie data is still being fetched from the API or not
+    error = signal<string | null>(null); // stores any error messages that may occur during the API request
 
     constructor(
         private route: ActivatedRoute, // provides access to parameters and allows us to et movie ID from URL
@@ -56,21 +66,30 @@ export class MovieDetailComponent implements OnInit {
 
         const id = Number(this.route.snapshot.paramMap.get('id')); // this is the movie id
 
-        this.movieService.getMovieDetails(id).subscribe((res) => {
-            //this function is what we use to get the movie details from api. we
+        this.movieService.getMovieDetails(id).subscribe({
+            next: (res) => {
+                //this function is what we use to get the movie details from api. we
 
-            this.movie.set(res);
-            this.loading.set(false);
+                this.movie.set(res);
+                this.loading.set(false);
 
-            /* we subscribe to the observable returned by the movie service to get the movie details 
+                /* we subscribe to the observable returned by the movie service to get the movie details 
                 once the API response is received, we set it to the movie signal and update the loading signal to false 
                 which indicates that the data has been loaded and is ready to be displayed in the template.
             */
+            },
+
+            error: () => {
+                this.error.set('Failed to load movie details.');
+                this.loading.set(false);
+            },
         });
     }
 
     // this is ht ehelper function that builds the full image poster url, and if there is no image to display, it puts a placeholder image
     getImage(path: string | null): string {
-        return path ? `${environment.tmdbImageBaseUrl}${path}` : '';
+        return path
+            ? `${environment.tmdbImageBaseUrl}${path}`
+            : 'https://via.placeholder.com/500x750?text=No+Image';
     }
 }
