@@ -36,6 +36,7 @@ import { environment } from '../../../environments/environment';
                 <h1>{{ mov.title }}</h1>
 
                 <p class="tagline" *ngIf="mov.tagline">{{ mov.tagline }}</p>
+                <!-- display movie tagline if it exists -->
 
                 <div class="meta">
                     <!-- display movie rating, release date, and runtime. i used chatgpt to generate this part of the code so that it makes the website feel better. the emojis
@@ -47,6 +48,29 @@ import { environment } from '../../../environments/environment';
                 </div>
 
                 <p class="overview">{{ mov.overview }}</p>
+                <!-- display movie overview -->
+
+                <div *ngIf="mov.genres?.length">
+                    <!-- display movie genres if they exist -->
+                    <h3>Genres</h3>
+
+                    <div class="tags">
+                        <!-- display movie genres as tags -->
+                        <span *ngFor="let genre of mov.genres">{{ genre.name }}</span>
+                    </div>
+                </div>
+
+                <div *ngIf="mov.credits?.cast?.length">
+                    <!-- display top cast members if they exist -->
+                    <h3>Top Cast</h3>
+
+                    <div class="tags">
+                        <!-- display top cast members as tags, showing only the first 8 members -->
+                        <span *ngFor="let cast of mov.credits!.cast.slice(0, 8)"
+                            >{{ cast.name }} <em>as {{ cast.character }}</em></span
+                        >
+                    </div>
+                </div>
             </div>
         </div>
     `,
