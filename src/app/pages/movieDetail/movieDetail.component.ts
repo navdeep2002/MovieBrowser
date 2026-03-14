@@ -107,6 +107,68 @@ import { environment } from '../../../environments/environment';
                 color: white;
                 flex-wrap: wrap;
             }
+
+            .detail img {
+                width: 300px;
+                border-radius: 10px;
+                flex-shrink: 0;
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .info {
+                flex: 1;
+                min-width: 200px;
+            }
+
+            .info h1 {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .tagline {
+                color: #aaa;
+                font-style: italic;
+                margin-bottom: 1rem;
+            }
+
+            .meta {
+                display: flex;
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                color: #f5c518;
+                margin-bottom: 1.5rem;
+                font-size: 0.95rem;
+            }
+
+            .overview {
+                line-height: 1.8;
+                margin-bottom: 1.5rem;
+                color: #ddd;
+            }
+
+            h3 {
+                color: #e94560;
+                margin-bottom: 0.75 rem;
+                margin-top: 1.25rem;
+            }
+
+            .tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .tags span {
+                background: #1a1a2e;
+                padding: 0.3rem 0.8rem;
+                border-radius: 20px;
+                font-size: 0.85rem;
+            }
+
+            .tags span em {
+                color: #aaa;
+                font-size: 0.8rem;
+            }
         `,
     ],
 })
