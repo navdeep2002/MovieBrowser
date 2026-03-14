@@ -32,6 +32,13 @@ import { environment } from '../../../environments/environment';
 
             <p *ngIf="mov.tagline">{{ mov.tagline }}</p>
             <p>{{ mov.overview }}</p>
+
+            <div>
+                <!-- display movie rating, release date, and runtime. i used chatgpt to generate this part of the code so that it makes the website feel better. the emojis
+                    can be written using unicode characters, but this part was just a copy paste from chatgpt, so i left the emojis as they are.
+                    -->
+                ⭐ {{ mov.vote_average }} 📅 {{ mov.release_date }} 🕐 {{ mov.runtime }} min
+            </div>
         </div>
     `,
 })
