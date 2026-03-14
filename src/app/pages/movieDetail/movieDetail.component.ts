@@ -50,7 +50,7 @@ import { environment } from '../../../environments/environment';
                 <p class="overview">{{ mov.overview }}</p>
                 <!-- display movie overview -->
 
-                <div *ngIf="mov.genres?.length">
+                <div *ngIf="mov.genres.length">
                     <!-- display movie genres if they exist -->
                     <h3>Genres</h3>
 
